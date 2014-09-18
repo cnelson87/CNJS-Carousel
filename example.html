@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en" class="nojs">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<title>CNJS Carousel</title>
+
+	<link rel="stylesheet" href="assets/reset.css" />
+	<link rel="stylesheet" href="assets/Carousel.css" />
+
+	<script src="assets/vendor/jquery.js"></script>
+	<script src="assets/vendor/jquery.easing.js"></script>
+	<script src="assets/vendor/jquery.touchSwipe.js"></script>
+	<script src="assets/vendor/Class.js"></script>
+	<script src="assets/Carousel.js"></script>
+
+	<script>
+		$(function() {
+			var $elMainCarousel = $('#main-carousel');
+			var $elThumbCarousel = $('#thumb-carousel');
+			var exMainCarousel = new Carousel( $elMainCarousel, {
+
+			});
+			var exThumbCarousel = new Carousel( $elThumbCarousel, {
+				numVisibleItems: 5,
+				highlightActive: false
+			});
+		});
+    </script>
+
+</head>
+<body>
+
+	<div id="content">
+
+
+					<div id="main-carousel" class="carousel main-carousel">
+						<div class="inner-track">
+							<ul>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-01.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 01</h3>
+										<p><span class="counter">1 of 12</span> Caption for lorem ipsum 01</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-02.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 02</h3>
+										<p><span class="counter">2 of 12</span> Caption for lorem ipsum 02</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-03.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 03</h3>
+										<p><span class="counter">3 of 12</span> Caption for lorem ipsum 03</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-04.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 04</h3>
+										<p><span class="counter">4 of 12</span> Caption for lorem ipsum 04</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-05.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 05</h3>
+										<p><span class="counter">5 of 12</span> Caption for lorem ipsum 05</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-06.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 06</h3>
+										<p><span class="counter">6 of 12</span> Caption for lorem ipsum 06</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-07.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 07</h3>
+										<p><span class="counter">7 of 12</span> Caption for lorem ipsum 07</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-08.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 08</h3>
+										<p><span class="counter">8 of 12</span> Caption for lorem ipsum 08</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-09.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 09</h3>
+										<p><span class="counter">9 of 12</span> Caption for lorem ipsum 09</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-10.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 10</h3>
+										<p><span class="counter">10 of 12</span> Caption for lorem ipsum 10</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-03.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 11</h3>
+										<p><span class="counter">11 of 12</span> Caption for lorem ipsum 11</p>
+									</div>
+								</li>
+								<li>
+									<div class="media-container">
+										<img alt="" src="assets/media/main/main-07.jpg" />
+									</div>
+									<div class="media-info">
+										<h3>Lorem Ipsum 12</h3>
+										<p><span class="counter">12 of 12</span> Caption for lorem ipsum 12</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
+						<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+					</div>
+
+					<div id="thumb-carousel" class="carousel thumb-carousel">
+						<div class="inner-track">
+							<ul>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-01.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-02.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-04.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-05.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-06.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-08.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-09.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-10.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
+								</li>
+								<li>
+									<a><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
+								</li>
+								
+							</ul>
+						</div>
+						<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
+						<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+					</div>
+
+
+	</div>
+
+</body>
+</html>
