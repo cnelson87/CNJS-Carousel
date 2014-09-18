@@ -11,8 +11,8 @@
 	<link rel="stylesheet" href="assets/Carousel.css" />
 
 	<script src="assets/vendor/jquery.js"></script>
-	<script src="assets/vendor/jquery.easing.js"></script>
 	<script src="assets/vendor/jquery.touchSwipe.js"></script>
+	<script src="assets/vendor/TweenMax.js"></script>
 	<script src="assets/vendor/Class.js"></script>
 	<script src="assets/Carousel.js"></script>
 
@@ -25,6 +25,7 @@
 			});
 			var exThumbCarousel = new Carousel( $elThumbCarousel, {
 				numVisibleItems: 5,
+				numItemsToAnimate: 1,
 				highlightActive: false
 			});
 		});

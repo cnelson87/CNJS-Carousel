@@ -1,7 +1,7 @@
 /*
 	TITLE: Carousel
 
-	DESCRIPTION: standard accordion
+	DESCRIPTION: responsive carousel
 
 	VERSION: 0.1.0
 
@@ -13,7 +13,7 @@
 
 	DEPENDENCIES:
 		- jQuery 1.10+
-		- jQuery.easing
+		- greensock
 		- Class.js
 
 */
@@ -37,9 +37,8 @@ var Carousel = Class.extend({
 			selectorItems		: '> li',
 			classActiveItem		: 'active',
 			classNavDisabled	: 'disabled',
-			animDuration		: 400,
-			//animEasing			: 'easeInQuad',
-			animEasing			: 'easeOutCubic',
+			animDuration		: 0.8,
+			animEasing			: 'Power4.easeOut',
 			customEventPrfx		: 'CNJS:Carousel'
 		}, objOptions || {});
 
@@ -91,7 +90,9 @@ var Carousel = Class.extend({
 		}
 
 		// adjust initial position
-		this.$elInnerTrack.css({width: trackWidth, left: leftPos});
+		TweenMax.set(this.$elInnerTrack, {
+			left: leftPos
+		}); 
 
 		if (this.options.highlightActive) {
 			elCurrentItem.addClass(this.options.classActiveItem);
@@ -112,6 +113,8 @@ var Carousel = Class.extend({
 
 		this.scrollAmt = (100 / (this.numVisibleItems / this.numItemsToAnimate)) * -1;
 
+		console.log(this.scrollAmt);
+
 		leftPos = this.scrollAmt * this.currentIndex;
 
 		// disable nav links if not enough visible items
@@ -122,8 +125,11 @@ var Carousel = Class.extend({
 		}
 
 		// adjust initial position
-		this.$elInnerTrack.css({width: trackWidth+'%', left: leftPos+'%'});
 		this.$elItems.css({width: this.itemWidth+'%'});
+		TweenMax.set(this.$elInnerTrack, {
+			width: trackWidth+'%',
+			left: leftPos+'%'
+		}); 
 
 		if (this.options.highlightActive) {
 			elCurrentItem.addClass(this.options.classActiveItem);
@@ -213,12 +219,14 @@ var Carousel = Class.extend({
 
 		this.updateNav();
 
-		this.$elInnerTrack.animate({
-			left: leftPos
-		}, self.options.animDuration, self.options.animEasing, function() {
-			self.isAnimating = false;
-			if (self.options.highlightActive) {
-				elCurrentItem.addClass(self.options.classActiveItem);
+		TweenMax.to(this.$elInnerTrack, this.options.animDuration, {
+			left: leftPos,
+			ease: self.options.animEasing,
+			onComplete: function() {
+				self.isAnimating = false;
+				if (self.options.highlightActive) {
+					elCurrentItem.addClass(self.options.classActiveItem);
+				}
 			}
 		});
 

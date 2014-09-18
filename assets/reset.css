@@ -34,6 +34,11 @@ audio, canvas, video {
 	display: inline-block;
 }
 
+html, body {
+	height: 100%;
+	min-height: 100%;
+}
+
 body {
 	color: #010101;
 	font-family: Arial, Verdana, sans-serif;
@@ -85,6 +90,7 @@ h4 {
 #content {
 	width: 100%;
 	min-width: 320px;
+	height: 100%;
 	min-height: 640px;
 	margin: 0 auto;
 	padding: 40px 20px;

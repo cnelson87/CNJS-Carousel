@@ -16,7 +16,7 @@
 	"dependencies": {
 		"jquery": "~2.1.1",
 		"jquery-touchswipe": "~1.6.6",
-		"jquery.easing": "git://github.com/AndrewDryga/jQuery.Easing.git",
+		"greensock": "~1.13.2",
 		"Class.js": "~1.0.0"
 	},
 	"private": false

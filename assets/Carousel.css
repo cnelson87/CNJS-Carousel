@@ -203,7 +203,7 @@
 		.thumb-carousel .inner-track > ul > li > a:hover:after,
 		.thumb-carousel .inner-track > ul > li > a:focus:after,
 		.thumb-carousel .inner-track > ul > li.active > a:after {
-			border-color: #c3cf21;
+			border-color: #6699cc;
 		}
 		.thumb-carousel .inner-track > ul > li > a > img {
 			display: block;
