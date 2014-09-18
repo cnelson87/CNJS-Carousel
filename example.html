@@ -25,8 +25,8 @@
 			});
 			var exThumbCarousel = new Carousel( $elThumbCarousel, {
 				numVisibleItems: 5,
-				numItemsToAnimate: 1,
-				highlightActive: false
+				numItemsToAnimate: 2
+				//highlightActive: false
 			});
 		});
     </script>
@@ -36,6 +36,23 @@
 
 	<div id="content">
 
+
+					<h1>CNJS Carousel</h1>
+					<p>
+						The included CSS stylesheet is for a responsive carousel and defaults to using percentages based on 10 items. The JS will re-calculate the percentages based on actual length of items.
+					</p>
+					<p>
+						When setting the 'isResponsive' option to false, the JS will not calculate relative sizes, and you must ensure the CSS units are accurate.
+					</p>
+
+
+					<hr />
+
+					<h2>Main Carousel</h2>
+					<p>
+						"Hero" style main carousel uses class defaults: {numVisibleItems: 1, numItemsToAnimate: 1}<br />
+						Uses CSS opacity transition to fade in/out the media-info area.
+					</p>
 
 					<div id="main-carousel" class="carousel main-carousel">
 						<div class="inner-track">
@@ -153,6 +170,16 @@
 						<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
 						<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
 					</div>
+
+
+					<hr />
+
+					<h2>Thumb Carousel</h2>
+					<p>
+						The thumb carousel uses passes in options: {numVisibleItems: 5, numItemsToAnimate: 2}<br />
+						The numVisibleItems option must be accurate or weird stuff will happen.<br />
+						The numItemsToAnimate can be set as desired (within reason of course).
+					</p>
 
 					<div id="thumb-carousel" class="carousel thumb-carousel">
 						<div class="inner-track">

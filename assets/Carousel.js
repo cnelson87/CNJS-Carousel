@@ -106,14 +106,12 @@ var Carousel = Class.extend({
 
 	initResponsiveDOM: function() {
 		var elCurrentItem = $(this.$elItems[this.currentIndex]);
-		var trackWidth = (this.lenItems * 100);
+		var trackWidth = (1 / this.numVisibleItems) * (this.lenItems * 100);
 		var leftPos;
 
-		this.itemWidth = ((100 / this.lenItems) / this.numVisibleItems);
+		this.itemWidth = 100 / this.lenItems;
 
-		this.scrollAmt = (100 / (this.numVisibleItems / this.numItemsToAnimate)) * -1;
-
-		console.log(this.scrollAmt);
+		this.scrollAmt = (100 / this.numVisibleItems) * -1;
 
 		leftPos = this.scrollAmt * this.currentIndex;
 
