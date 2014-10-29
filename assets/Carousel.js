@@ -22,53 +22,56 @@ var Carousel = Class.extend({
 	init: function($el, objOptions) {
 
 		// defaults
-		this.$window	= $(window);
-		this.$el		= $el;
-		this.options	= $.extend({
-			initialIndex		: 0,
-			numVisibleItems		: 1,
-			numItemsToAnimate	: 1,
-			isResponsive		: true,
-			enableSwipe			: true,
-			highlightActive		: true,
-			selectorNavPrev		: '.nav-prev',
-			selectorNavNext		: '.nav-next',
-			selectorInnerTrack	: '.inner-track > ul',
-			selectorItems		: '> li',
-			classActiveItem		: 'active',
-			classNavDisabled	: 'disabled',
-			animDuration		: 0.8,
-			animEasing			: 'Power4.easeOut',
-			customEventPrfx		: 'CNJS:Carousel'
+		this.$window = $(window);
+		this.$el = $el;
+		this.options = $.extend({
+			initialIndex: 0,
+			numVisibleItems: 1,
+			numItemsToAnimate: 1,
+			isResponsive: true,
+			enableSwipe: true,
+			highlightActive: true,
+			selectorNavPrev: '.nav-prev',
+			selectorNavNext: '.nav-next',
+			selectorInnerTrack: '.inner-track > ul',
+			selectorItems: '> li',
+			classActiveItem: 'active',
+			classNavDisabled: 'disabled',
+			animDuration: 0.6,
+			animEasing: 'Power4.easeOut',
+			customEventPrfx: 'CNJS:Carousel'
 		}, objOptions || {});
 
 		// element references
-		this.$elNavPrev		= this.$el.find(this.options.selectorNavPrev);
-		this.$elNavNext		= this.$el.find(this.options.selectorNavNext);
-		this.$elInnerTrack	= this.$el.find(this.options.selectorInnerTrack);
-		this.$elItems 		= this.$elInnerTrack.find(this.options.selectorItems);
+		this.$elNavPrev = this.$el.find(this.options.selectorNavPrev);
+		this.$elNavNext = this.$el.find(this.options.selectorNavNext);
+		this.$elInnerTrack = this.$el.find(this.options.selectorInnerTrack);
+		this.$elItems = this.$elInnerTrack.find(this.options.selectorItems);
 
 		// setup & properties
-		this.isAnimating	= false;
+		this.isAnimating = false;
 		this.containerWidth = this.$el.width();
-		this.lenItems		= this.$elItems.length;
-		this.itemWidth		= $(this.$elItems[0]).width();
-		this.scrollAmt		= this.itemWidth * -1;
-		this.isResponsive	= this.options.isResponsive;
-		this.numVisibleItems	= this.options.numVisibleItems;
-		this.numItemsToAnimate	= this.options.numItemsToAnimate;
+		this.lenItems = this.$elItems.length;
+		this.itemWidth = $(this.$elItems[0]).width();
+		this.scrollAmt = this.itemWidth * -1;
+		this.isResponsive = this.options.isResponsive;
+		this.numVisibleItems = this.options.numVisibleItems;
+		this.numItemsToAnimate = this.options.numItemsToAnimate;
 		if (this.options.initialIndex >= this.lenItems) {
 			this.options.initialIndex = 0;
 		}
-		this.currentIndex	= this.options.initialIndex;
-		this.lastIndex		= this.lenItems - this.numVisibleItems;
-
+		this.currentIndex = this.options.initialIndex;
+		this.lastIndex = this.lenItems - this.numVisibleItems;
 
 		if (this.isResponsive) {
 			this.initResponsiveDOM();
 		} else {
 			this.initDOM();
 		}
+
+		this.bindEvents();
+
+		$.event.trigger(this.options.customEventPrfx + ':isInitialized', [this.$el]);
 
 	},
 
@@ -97,10 +100,6 @@ var Carousel = Class.extend({
 		if (this.options.highlightActive) {
 			elCurrentItem.addClass(this.options.classActiveItem);
 		}
-
-		$.event.trigger(this.options.customEventPrfx + ':isInitialized', [this.$el]);
-
-		this.bindEvents();
 
 	},
 
@@ -132,10 +131,6 @@ var Carousel = Class.extend({
 		if (this.options.highlightActive) {
 			elCurrentItem.addClass(this.options.classActiveItem);
 		}
-
-		$.event.trigger(this.options.customEventPrfx + ':isInitialized', [this.$el]);
-
-		this.bindEvents();
 
 	},
 
@@ -182,7 +177,7 @@ var Carousel = Class.extend({
 *	Event Handlers
 **/
 
-	__clickNavPrev: function(e) {
+	__clickNavPrev: function(event) {
 		this.currentIndex -= this.numItemsToAnimate;
 		if (this.currentIndex < 0) {
 			this.currentIndex = 0;
@@ -190,7 +185,7 @@ var Carousel = Class.extend({
 		this.updateCarousel();
 	},
 
-	__clickNavNext: function(e) {
+	__clickNavNext: function(event) {
 		this.currentIndex += this.numItemsToAnimate;
 		if (this.currentIndex + this.numVisibleItems >= this.lenItems) {
 			this.currentIndex = this.lenItems - this.numVisibleItems;
