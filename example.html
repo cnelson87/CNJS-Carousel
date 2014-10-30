@@ -21,12 +21,12 @@
 			var $elMainCarousel = $('#main-carousel');
 			var $elThumbCarousel = $('#thumb-carousel');
 			var exMainCarousel = new Carousel( $elMainCarousel, {
-
+				highlightActive: true,
+				autoRotate: true
 			});
 			var exThumbCarousel = new Carousel( $elThumbCarousel, {
 				numVisibleItems: 5,
 				numItemsToAnimate: 2
-				//highlightActive: false
 			});
 		});
     </script>
@@ -49,8 +49,8 @@
 
 		<h2>Main Carousel</h2>
 		<p>
-			"Hero" style main carousel uses class defaults: {numVisibleItems: 1, numItemsToAnimate: 1}<br />
-			Uses CSS opacity transition to fade in/out the media-info area.
+			"Hero" style main carousel uses class defaults: {numVisibleItems: 1, numItemsToAnimate: 1, isResponsive: true, enableSwipe: true}, and custom options: {highlightActive: true, autoRotate: true}<br />
+			Uses CSS opacity transition to fade in/out the media-info area when active / highlighted class is applied.
 		</p>
 
 		<div id="main-carousel" class="carousel main-carousel">
@@ -176,9 +176,8 @@
 
 		<h2>Thumb Carousel</h2>
 		<p>
-			The thumb carousel uses passes in options: {numVisibleItems: 5, numItemsToAnimate: 2}<br />
-			The numVisibleItems option must be accurate or weird stuff will happen.<br />
-			The numItemsToAnimate can be set as desired (within reason of course).
+			The thumb carousel uses custom options: {numVisibleItems: 5, numItemsToAnimate: 2}<br />
+			The numVisibleItems option must be accurate or weird stuff will happen. The numItemsToAnimate can be set as desired (within reason of course).
 		</p>
 
 		<div id="thumb-carousel" class="carousel thumb-carousel">

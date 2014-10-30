@@ -57,6 +57,7 @@
 
 
 
+
 /********************************
 	Assumes 10 items in carousel,
 	JS will re-calculate actuals
@@ -138,7 +139,6 @@
 		.main-carousel .inner-track > ul > li.active > .media-info {
 			opacity: 1.0;
 		}
-
 
 
 /* five thumb items visible */
@@ -256,6 +256,45 @@
 
 	.thumb-carousel {
 		display: none;
+	}
+
+}
+
+
+@media (min-width: 768px) {
+
+	.main-carousel {
+
+	}
+
+	.thumb-carousel {
+
+	}
+
+}
+
+
+@media (min-width: 1024px) {
+
+	.main-carousel {
+
+	}
+
+	.thumb-carousel {
+
+	}
+
+}
+
+
+@media (min-width: 1224px) {
+
+	.main-carousel {
+
+	}
+
+	.thumb-carousel {
+
 	}
 
 }

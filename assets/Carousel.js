@@ -30,13 +30,16 @@ var Carousel = Class.extend({
 			numItemsToAnimate: 1,
 			isResponsive: true,
 			enableSwipe: true,
-			highlightActive: true,
+			highlightActive: false,
 			selectorNavPrev: '.nav-prev',
 			selectorNavNext: '.nav-next',
 			selectorInnerTrack: '.inner-track > ul',
 			selectorItems: '> li',
 			classActiveItem: 'active',
 			classNavDisabled: 'disabled',
+			autoRotate: false,
+			autoRotateInterval: 8000,
+			maxAutoRotations: 5,
 			animDuration: 0.6,
 			animEasing: 'Power4.easeOut',
 			customEventPrfx: 'CNJS:Carousel'
@@ -57,9 +60,7 @@ var Carousel = Class.extend({
 		this.isResponsive = this.options.isResponsive;
 		this.numVisibleItems = this.options.numVisibleItems;
 		this.numItemsToAnimate = this.options.numItemsToAnimate;
-		if (this.options.initialIndex >= this.lenItems) {
-			this.options.initialIndex = 0;
-		}
+		if (this.options.initialIndex >= this.lenItems) {this.options.initialIndex = 0;}
 		this.currentIndex = this.options.initialIndex;
 		this.lastIndex = this.lenItems - this.numVisibleItems;
 
@@ -81,7 +82,7 @@ var Carousel = Class.extend({
 **/
 
 	initDOM: function() {
-		var elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
 		var trackWidth = this.itemWidth * this.lenItems;
 		var leftPos = this.scrollAmt * this.currentIndex;
 
@@ -98,13 +99,22 @@ var Carousel = Class.extend({
 		}); 
 
 		if (this.options.highlightActive) {
-			elCurrentItem.addClass(this.options.classActiveItem);
+			$elCurrentItem.addClass(this.options.classActiveItem);
+		}
+
+		// auto-rotate items
+		if (this.options.autoRotate) {
+			this.rotationInterval = this.options.autoRotateInterval;
+			this.autoRotationCounter = this.lenItems * this.options.maxAutoRotations;
+			this.setAutoRotation = setInterval(function() {
+				this.autoRotation();
+			}.bind(this), this.rotationInterval);
 		}
 
 	},
 
 	initResponsiveDOM: function() {
-		var elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
 		var trackWidth = (1 / this.numVisibleItems) * (this.lenItems * 100);
 		var leftPos;
 
@@ -129,7 +139,16 @@ var Carousel = Class.extend({
 		}); 
 
 		if (this.options.highlightActive) {
-			elCurrentItem.addClass(this.options.classActiveItem);
+			$elCurrentItem.addClass(this.options.classActiveItem);
+		}
+
+		// auto-rotate items
+		if (this.options.autoRotate) {
+			this.rotationInterval = this.options.autoRotateInterval;
+			this.autoRotationCounter = this.lenItems * this.options.maxAutoRotations;
+			this.setAutoRotation = setInterval(function() {
+				this.autoRotation();
+			}.bind(this), this.rotationInterval);
 		}
 
 	},
@@ -172,25 +191,56 @@ var Carousel = Class.extend({
 
 	},
 
+	autoRotation: function() {
+
+		if (this.currentIndex === this.lastIndex) {
+			this.currentIndex = 0;
+		} else {
+			this.currentIndex += this.numItemsToAnimate;
+			if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
+		}
+
+		this.updateCarousel();
+		this.autoRotationCounter--;
+
+		if (this.autoRotationCounter === 0) {
+			clearInterval(this.setAutoRotation);
+			this.options.autoRotate = false;
+		}
+
+	},
+
 
 /**
 *	Event Handlers
 **/
 
 	__clickNavPrev: function(event) {
-		this.currentIndex -= this.numItemsToAnimate;
-		if (this.currentIndex < 0) {
-			this.currentIndex = 0;
+
+		if (this.options.autoRotate) {
+			clearInterval(this.setAutoRotation);
+			this.options.autoRotate = false;
 		}
+
+		this.currentIndex -= this.numItemsToAnimate;
+		if (this.currentIndex < 0) {this.currentIndex = 0;}
+
 		this.updateCarousel();
+
 	},
 
 	__clickNavNext: function(event) {
-		this.currentIndex += this.numItemsToAnimate;
-		if (this.currentIndex + this.numVisibleItems >= this.lenItems) {
-			this.currentIndex = this.lenItems - this.numVisibleItems;
+
+		if (this.options.autoRotate) {
+			clearInterval(this.setAutoRotation);
+			this.options.autoRotate = false;
 		}
+
+		this.currentIndex += this.numItemsToAnimate;
+		if (this.currentIndex > this.lastIndex) {this.currentIndex = this.lastIndex;}
+
 		this.updateCarousel();
+
 	},
 
 
@@ -202,7 +252,7 @@ var Carousel = Class.extend({
 		var self = this;
 		var unit = this.isResponsive ? '%' : 'px';
 		var leftPos = (this.scrollAmt * this.currentIndex) + unit;
-		var elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
 
 		this.isAnimating = true;
 
@@ -218,7 +268,7 @@ var Carousel = Class.extend({
 			onComplete: function() {
 				self.isAnimating = false;
 				if (self.options.highlightActive) {
-					elCurrentItem.addClass(self.options.classActiveItem);
+					$elCurrentItem.addClass(self.options.classActiveItem);
 				}
 			}
 		});
