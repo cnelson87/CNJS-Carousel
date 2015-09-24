@@ -1,5 +1,5 @@
-# CNJS-Accordion
+# CNJS-Carousel
 
-Accordion widget and/or browserify module
+Basic Carousel widget
 
-Registration: `bower register CNJS-Accordion git://github.com/cnelson87/CNJS-Accordion.git`
+Registration: `bower register CNJS-Carousel git://github.com/cnelson87/CNJS-Carousel.git`
