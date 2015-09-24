@@ -94,6 +94,7 @@
 			display: block;
 			width: calc(100% * 10);
 			height: 100%;
+			margin: 0;
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -102,6 +103,7 @@
 			float: left;
 			width: calc(100% / 10);
 			height: 100%;
+			margin: 0;
 			position: relative;
 		}
 		.main-carousel .inner-track > ul > li > .media-container {
@@ -125,7 +127,6 @@
 			right: 20px;
 			bottom: 20px;
 			opacity: 0;
-			box-sizing: border-box;
 			transition: opacity 0.2s ease;
 		}
 		.main-carousel .inner-track > ul > li > .media-info h3,
@@ -171,6 +172,7 @@
 			display: block;
 			width: calc(100% * 2);
 			height: 100%;
+			margin: 0;
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -179,6 +181,7 @@
 			float: left;
 			width: calc(100% / 10);
 			height: 100%;
+			margin: 0;
 			position: relative;
 		}
 		.thumb-carousel .inner-track > ul > li > a {
@@ -198,7 +201,6 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			box-sizing: border-box;
 		}
 		.thumb-carousel .inner-track > ul > li > a:hover:after,
 		.thumb-carousel .inner-track > ul > li > a:focus:after,
@@ -287,7 +289,7 @@
 }
 
 
-@media (min-width: 1224px) {
+@media (min-width: 1280px) {
 
 	.main-carousel {
 
