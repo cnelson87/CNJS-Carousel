@@ -214,6 +214,7 @@
 		}
 
 
+/* Mobile */
 @media (max-width: 767px) {
 
 	.main-carousel {
@@ -262,8 +263,8 @@
 
 }
 
-
-@media (min-width: 768px) {
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
 
 	.main-carousel {
 
@@ -275,7 +276,7 @@
 
 }
 
-
+/* Desktop */
 @media (min-width: 1024px) {
 
 	.main-carousel {
@@ -287,17 +288,3 @@
 	}
 
 }
-
-
-@media (min-width: 1280px) {
-
-	.main-carousel {
-
-	}
-
-	.thumb-carousel {
-
-	}
-
-}
-

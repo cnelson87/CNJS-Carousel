@@ -1,18 +1,18 @@
 /*
 	TITLE: Carousel
 
-	DESCRIPTION: responsive carousel
+	DESCRIPTION: Basic Carousel widget
 
-	VERSION: 0.1.0
+	VERSION: 0.1.2
 
 	USAGE: var myCarousel = new Carousel('Element', 'Options')
 		@param {jQuery Object}
 		@param {Object}
 
-	AUTHORS: CN
+	AUTHOR: CN
 
 	DEPENDENCIES:
-		- jQuery 1.10+
+		- jQuery 2.1x+
 		- greensock
 		- Class.js
 
@@ -46,16 +46,16 @@ var Carousel = Class.extend({
 		}, objOptions || {});
 
 		// element references
-		this.$elNavPrev = this.$el.find(this.options.selectorNavPrev);
-		this.$elNavNext = this.$el.find(this.options.selectorNavNext);
-		this.$elInnerTrack = this.$el.find(this.options.selectorInnerTrack);
-		this.$elItems = this.$elInnerTrack.find(this.options.selectorItems);
+		this.$navPrev = this.$el.find(this.options.selectorNavPrev);
+		this.$navNext = this.$el.find(this.options.selectorNavNext);
+		this.$innerTrack = this.$el.find(this.options.selectorInnerTrack);
+		this.$items = this.$innerTrack.find(this.options.selectorItems);
 
 		// setup & properties
 		this.isAnimating = false;
 		this.containerWidth = this.$el.width();
-		this.lenItems = this.$elItems.length;
-		this.itemWidth = $(this.$elItems[0]).width();
+		this.lenItems = this.$items.length;
+		this.itemWidth = $(this.$items[0]).width();
 		this.scrollAmt = this.itemWidth * -1;
 		this.isResponsive = this.options.isResponsive;
 		this.numVisibleItems = this.options.numVisibleItems;
@@ -82,24 +82,24 @@ var Carousel = Class.extend({
 **/
 
 	initDOM: function() {
-		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $currentItem = $(this.$items[this.currentIndex]);
 		var trackWidth = this.itemWidth * this.lenItems;
 		var leftPos = this.scrollAmt * this.currentIndex;
 
 		// disable nav links if not enough visible items
 		this.updateNav();
 		if (this.lenItems <= this.options.numVisibleItems) {
-			this.$elNavPrev.addClass(this.options.classNavDisabled);
-			this.$elNavNext.addClass(this.options.classNavDisabled);
+			this.$navPrev.addClass(this.options.classNavDisabled);
+			this.$navNext.addClass(this.options.classNavDisabled);
 		}
 
 		// adjust initial position
-		TweenMax.set(this.$elInnerTrack, {
+		TweenMax.set(this.$innerTrack, {
 			left: leftPos
 		}); 
 
 		if (this.options.highlightActive) {
-			$elCurrentItem.addClass(this.options.classActiveItem);
+			$currentItem.addClass(this.options.classActiveItem);
 		}
 
 		// auto-rotate items
@@ -114,7 +114,7 @@ var Carousel = Class.extend({
 	},
 
 	initResponsiveDOM: function() {
-		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $currentItem = $(this.$items[this.currentIndex]);
 		var trackWidth = (1 / this.numVisibleItems) * (this.lenItems * 100);
 		var leftPos;
 
@@ -127,19 +127,19 @@ var Carousel = Class.extend({
 		// disable nav links if not enough visible items
 		this.updateNav();
 		if (this.lenItems <= this.options.numVisibleItems) {
-			this.$elNavPrev.addClass(this.options.classNavDisabled);
-			this.$elNavNext.addClass(this.options.classNavDisabled);
+			this.$navPrev.addClass(this.options.classNavDisabled);
+			this.$navNext.addClass(this.options.classNavDisabled);
 		}
 
 		// adjust initial position
-		this.$elItems.css({width: this.itemWidth+'%'});
-		TweenMax.set(this.$elInnerTrack, {
+		this.$items.css({width: this.itemWidth+'%'});
+		TweenMax.set(this.$innerTrack, {
 			width: trackWidth+'%',
 			left: leftPos+'%'
 		}); 
 
 		if (this.options.highlightActive) {
-			$elCurrentItem.addClass(this.options.classActiveItem);
+			$currentItem.addClass(this.options.classActiveItem);
 		}
 
 		// auto-rotate items
@@ -156,36 +156,37 @@ var Carousel = Class.extend({
 	bindEvents: function() {
 		var self = this;
 
-		this.$elNavPrev.on('click', function(event) {
+		this.$navPrev.on('click', function(event) {
 			event.preventDefault();
-			if (!this.$elNavPrev.hasClass(this.options.classNavDisabled) && !this.isAnimating) {
+			if (!this.$navPrev.hasClass(this.options.classNavDisabled) && !this.isAnimating) {
 				this.__clickNavPrev(event);
 			}
 		}.bind(this));
 
-		this.$elNavNext.on('click', function(event) {
+		this.$navNext.on('click', function(event) {
 			event.preventDefault();
-			if (!this.$elNavNext.hasClass(this.options.classNavDisabled) && !this.isAnimating) {
+			if (!this.$navNext.hasClass(this.options.classNavDisabled) && !this.isAnimating) {
 				this.__clickNavNext(event);
 			}
 		}.bind(this));
 
 		if (this.options.enableSwipe) {
 			this.$el.swipe({
-				excludedElements: ".noSwipe",
+				fingers: 'all',
+				excludedElements: '.noSwipe',
 				threshold: 50,
 				triggerOnTouchEnd: false, // triggers on threshold
-				swipeLeft: function(event, distance, duration, fingerCount) {
-					if (!self.$elNavNext.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+				swipeLeft: function(event) {
+					if (!self.$navNext.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
 						self.__clickNavNext(event);
 					}
 				},
-				swipeRight: function(event, distance, duration, fingerCount) {
-					if (!self.$elNavPrev.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+				swipeRight: function(event) {
+					if (!self.$navPrev.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
 						self.__clickNavPrev(event);
 					}
 				},
-				fingers: $.fn.swipe.fingers.ALL
+				allowPageScroll: 'vertical'
 			});
 		}
 
@@ -252,23 +253,23 @@ var Carousel = Class.extend({
 		var self = this;
 		var unit = this.isResponsive ? '%' : 'px';
 		var leftPos = (this.scrollAmt * this.currentIndex) + unit;
-		var $elCurrentItem = $(this.$elItems[this.currentIndex]);
+		var $currentItem = $(this.$items[this.currentIndex]);
 
 		this.isAnimating = true;
 
 		if (this.options.highlightActive) {
-			this.$elItems.removeClass(this.options.classActiveItem);
+			this.$items.removeClass(this.options.classActiveItem);
 		}
 
 		this.updateNav();
 
-		TweenMax.to(this.$elInnerTrack, this.options.animDuration, {
+		TweenMax.to(this.$innerTrack, this.options.animDuration, {
 			left: leftPos,
 			ease: self.options.animEasing,
 			onComplete: function() {
 				self.isAnimating = false;
 				if (self.options.highlightActive) {
-					$elCurrentItem.addClass(self.options.classActiveItem);
+					$currentItem.addClass(self.options.classActiveItem);
 				}
 			}
 		});
@@ -279,21 +280,20 @@ var Carousel = Class.extend({
 
 	updateNav: function() {
 
-		this.$elNavPrev.removeClass(this.options.classNavDisabled);
-		this.$elNavNext.removeClass(this.options.classNavDisabled);
+		this.$navPrev.removeClass(this.options.classNavDisabled);
+		this.$navNext.removeClass(this.options.classNavDisabled);
 
 		if (this.currentIndex <= 0) {
-			this.$elNavPrev.addClass(this.options.classNavDisabled);
+			this.$navPrev.addClass(this.options.classNavDisabled);
 		}
 
 		if (this.currentIndex >= this.lastIndex) {
-			this.$elNavNext.addClass(this.options.classNavDisabled);
+			this.$navNext.addClass(this.options.classNavDisabled);
 		}
 
 	}
 
 });
-
 
 //uncomment to use as a browserify module
 //module.exports = Carousel;

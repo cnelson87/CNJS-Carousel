@@ -1,7 +1,7 @@
 {
 	"name": "CNJS-Carousel",
 	"description": "Basic Carousel widget",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"main": [
 		"assets/Carousel.js",
 		"assets/Carousel.css"
