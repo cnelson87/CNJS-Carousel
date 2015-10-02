@@ -265,7 +265,7 @@ var Carousel = Class.extend({
 
 		TweenMax.to(this.$innerTrack, this.options.animDuration, {
 			left: leftPos,
-			ease: self.options.animEasing,
+			ease: this.options.animEasing,
 			onComplete: function() {
 				self.isAnimating = false;
 				if (self.options.highlightActive) {
