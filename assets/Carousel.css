@@ -3,85 +3,28 @@
 /*-----------------------------------------------------*/
 
 
-.arrow-nav {
-	display: inline-block;
-	cursor: pointer;
-	width: 24px;
-	height: 24px;
-	background: transparent;
-	position: relative;
-}
-.arrow-nav.disabled {
-	cursor: default;
-}
-	.arrow-nav .arrow {
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: transparent url("images/sprite-arrows.png") no-repeat 0 0;
-	}
-	.arrow-nav.nav-prev .arrow { background-position: -8px -8px; }
-	.arrow-nav.nav-prev:hover .arrow, .arrow-nav.nav-prev:focus .arrow { background-position: -8px -48px; }
-	.arrow-nav.nav-prev.disabled .arrow{ background-position: -8px -88px; }
-	.arrow-nav.nav-next .arrow { background-position: -48px -8px; }
-	.arrow-nav.nav-next:hover .arrow, .arrow-nav.nav-next:focus .arrow { background-position: -48px -48px; }
-	.arrow-nav.nav-next.disabled .arrow { background-position: -48px -88px; }
-	.arrow-nav.nav-up .arrow { background-position: -88px -8px; }
-	.arrow-nav.nav-up:hover .arrow, .arrow-nav.nav-up:focus .arrow { background-position: -88px -48px; }
-	.arrow-nav.nav-up.disabled .arrow { background-position: -88px -88px; }
-	.arrow-nav.nav-down .arrow { background-position: -128px -8px; }
-	.arrow-nav.nav-down:hover .arrow, .arrow-nav.nav-down:focus .arrow { background-position: -128px -48px; }
-	.arrow-nav.nav-down.disabled .arrow { background-position: -128px -88px; }
-
-@media (max-width: 767px) {
-
-	.arrow-nav {
-		width: 40px;
-		height: 40px;
-		background-color: rgba(255, 255, 255, 0.5);
-	}
-	.arrow-nav.nav-prev .arrow { background-position: 0px 0px; }
-	.arrow-nav.nav-prev:hover .arrow, .arrow-nav.nav-prev:focus .arrow { background-position: 0px -40px; }
-	.arrow-nav.nav-prev.disabled .arrow { background-position: 0px -80px; }
-	.arrow-nav.nav-next .arrow { background-position: -40px 0px; }
-	.arrow-nav.nav-next:hover .arrow, .arrow-nav.nav-next:focus .arrow { background-position: -40px -40px; }
-	.arrow-nav.nav-next.disabled .arrow { background-position: -40px -80px; }
-	.arrow-nav.nav-up .arrow { background-position: -80px 0px; }
-	.arrow-nav.nav-up:hover .arrow, .arrow-nav.nav-up:focus .arrow { background-position: -80px -40px; }
-	.arrow-nav.nav-up.disabled .arrow { background-position: -80px -80px; }
-	.arrow-nav.nav-down .arrow { background-position: -120px 0px; }
-	.arrow-nav.nav-down:hover .arrow, .arrow-nav.nav-down:focus .arrow { background-position: -120px -40px; }
-	.arrow-nav.nav-down.disabled .arrow { background-position: -120px -80px; }
-
-}
+/******************************************************************
+ Carousel widths are set assuming desktop-wide breakpoint (1280px).
+******************************************************************/
 
 
+/* base carousel styles */
 
-
-/********************************
-	Assumes 10 items in carousel,
-	JS will re-calculate actuals
-********************************/
-
-
-/* one mian item visible */
-
-.main-carousel {
-	width: calc(100% - 80px);
-	height: 0;
-	margin: 0 40px 1.0em 40px;
-	padding-top: 56.25%; /* creates 16x9 ratio */
+.carousel {
+	width: 100%;
+	height: auto;
+	margin: 0 auto 1.0em auto;
 	position: relative;
 }
 
-	.main-carousel .arrow-nav {
+	.carousel .arrow-nav {
 		position: absolute;
-		top: calc(50% - 12px);
+		top: calc(50% - 20px);
 	}
-	.main-carousel .arrow-nav.nav-prev { left: -40px; }
-	.main-carousel .arrow-nav.nav-next { right: -40px; }
+	.carousel .arrow-nav.nav-prev { left: -40px; }
+	.carousel .arrow-nav.nav-next { right: -40px; }
 
-	.main-carousel .inner-track {
+	.carousel .outer-mask {
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
@@ -89,202 +32,112 @@
 		left: 0;
 		top: 0;
 	}
-		.main-carousel .inner-track > ul {
-			list-style: none;
-			display: block;
-			width: calc(100% * 10);
-			height: 100%;
-			margin: 0;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-		.main-carousel .inner-track > ul > li {
-			float: left;
-			width: calc(100% / 10);
-			height: 100%;
-			margin: 0;
-			position: relative;
-		}
-		.main-carousel .inner-track > ul > li > .media-container {
-			width: 100%;
-			height: 100%;
-			position: relative;
-			overflow: hidden;
-		}
-		.main-carousel .inner-track > ul > li > .media-container > img {
-			display: block;
-			width: 100%;
-			height: 100%;
-		}
-		.main-carousel .inner-track > ul > li > .media-info {
-			width: calc(100% - 40px);
-			min-height: 60px;
-			background: rgba(0,0,0,0.4);
-			padding: 12px;
-			position: absolute;
-			left: 20px;
-			right: 20px;
-			bottom: 20px;
-			opacity: 0;
-			transition: opacity 0.2s ease;
-		}
-		.main-carousel .inner-track > ul > li > .media-info h3,
-		.main-carousel .inner-track > ul > li > .media-info p {
-			color: #fff;
-			margin: 0;
-		}
-		.main-carousel .inner-track > ul > li > .media-info .counter {
-			font-style: italic;
-		}
-		.main-carousel .inner-track > ul > li.active > .media-info {
-			opacity: 1.0;
-		}
+	.carousel .outer-mask > .inner-track {
+		display: block;
+		width: calc(100% * 10); /*assumes 10 items, JS will override*/
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.carousel .outer-mask > .inner-track:after {
+		/*clearfix*/
+		content: "";
+		display: block;
+		clear: both;
+	}
+	.carousel .outer-mask > .inner-track > article {
+		/*set width and height with specific carousel class*/
+		float: left;
+		position: relative;
+	}
+
+
+/* one main item visible */
+
+.main-carousel {
+	width: 1120px;
+	height: 630px;
+}
+	/*.main-carousel .outer-mask {}*/
+	/*.main-carousel .outer-mask > .inner-track {}*/
+	.main-carousel .outer-mask > .inner-track > article {
+		width: 1120px;
+		height: 630px;
+	}
+
+	.main-carousel article > .media-container {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+	.main-carousel article > .media-container > img {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.main-carousel article > .media-info {
+		color: #fff;
+		width: calc(100% - 40px);
+		min-height: 60px;
+		background: rgba(0,0,0,0.6);
+		padding: 10px 20px;
+		position: absolute;
+		left: 20px;
+		right: 20px;
+		bottom: 20px;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+	.main-carousel article > .media-info p {
+		margin: 0;
+	}
+	.main-carousel article > .media-info .counter {
+		font-style: italic;
+		float: right;
+	}
+	.main-carousel article.active > .media-info {
+		opacity: 1.0;
+	}
 
 
 /* five thumb items visible */
 
 .thumb-carousel {
-	width: calc(100% - 80px);
-	height: 0;
-	margin: 0 40px 1.0em 40px;
-	padding-top: 11.25%; /* creates 16x9 ratio, x5 */
-	position: relative;
+	width: 1120px;
+	height: 124px;
 }
-
-	.thumb-carousel .arrow-nav {
-		position: absolute;
-		top: calc(50% - 12px);
+	/*.thumb-carousel .outer-mask {}*/
+	/*.thumb-carousel .outer-mask > .inner-track {}*/
+	.thumb-carousel .outer-mask > .inner-track > article {
+		width: 224px;
+		height: 124px;
+		padding: 0 2px;
 	}
-	.thumb-carousel .arrow-nav.nav-prev { left: -40px; }
-	.thumb-carousel .arrow-nav.nav-next { right: -40px; }
 
-	.thumb-carousel .inner-track {
+	.thumb-carousel article > a {
+		display: block;
 		width: 100%;
 		height: 100%;
-		overflow: hidden;
+		position: relative;
+	}
+	.thumb-carousel article > a:after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 4px solid transparent;
 		position: absolute;
 		left: 0;
 		top: 0;
 	}
-		.thumb-carousel .inner-track > ul {
-			list-style: none;
-			display: block;
-			width: calc(100% * 2);
-			height: 100%;
-			margin: 0;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-		.thumb-carousel .inner-track > ul > li {
-			float: left;
-			width: calc(100% / 10);
-			height: 100%;
-			margin: 0;
-			position: relative;
-		}
-		.thumb-carousel .inner-track > ul > li > a {
-			display: block;
-			cursor: pointer;
-			width: calc(100% - 8px);
-			height: 100%;
-			margin: 0 auto;
-			position: relative;
-		}
-		.thumb-carousel .inner-track > ul > li > a:after {
-			content: '';
-			display: block;
-			width: 100%;
-			height: 100%;
-			border: 3px solid transparent;
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-		.thumb-carousel .inner-track > ul > li > a:hover:after,
-		.thumb-carousel .inner-track > ul > li > a:focus:after,
-		.thumb-carousel .inner-track > ul > li.active > a:after {
-			border-color: #6699cc;
-		}
-		.thumb-carousel .inner-track > ul > li > a > img {
-			display: block;
-			width: 100%;
-			height: 100%;
-		}
-
-
-/* Mobile */
-@media (max-width: 767px) {
-
-	.main-carousel {
+	.thumb-carousel article > a:hover:after,
+	.thumb-carousel article > a:focus:after {
+		border-color: #6699cc;
+	}
+	.thumb-carousel article > a > img {
+		display: block;
 		width: 100%;
-		background: #000;
-		margin: 0 0 1.0em 0;
-		padding-bottom: 60px; /* equal to .media-info height */
+		height: 100%;
 	}
-
-		/*.main-carousel .arrow-nav {
-			height: calc(100% - 60px);
-			top: 0;
-		}
-		.main-carousel .arrow-nav .arrow {
-			width: 40px;
-			height: 40px;
-			position: absolute;
-			top: calc(50% - 20px);
-
-		}*/
-		.main-carousel .arrow-nav {
-			top: calc(((100% - 60px) / 2) - 12px);
-		}
-		.main-carousel .arrow-nav.nav-prev {
-			left: 0;
-		}
-		.main-carousel .arrow-nav.nav-next {
-			right: 0;
-		}
-
-		.main-carousel .inner-track > ul > li > .media-container {
-			height: calc(100% - 60px);
-		}
-		.main-carousel .inner-track > ul > li > .media-info {
-			width: 100%;
-			min-height: 60px;
-			left: 0;
-			right: 0;
-			bottom: 0;
-		}
-
-
-	.thumb-carousel {
-		display: none;
-	}
-
-}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-
-	.main-carousel {
-
-	}
-
-	.thumb-carousel {
-
-	}
-
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-
-	.main-carousel {
-
-	}
-
-	.thumb-carousel {
-
-	}
-
-}

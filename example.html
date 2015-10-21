@@ -8,6 +8,7 @@
 	<title>CNJS Carousel</title>
 
 	<link rel="stylesheet" href="assets/reset.css" />
+	<link rel="stylesheet" href="assets/arrowNav.css" />
 	<link rel="stylesheet" href="assets/Carousel.css" />
 
 	<script src="assets/vendor/jquery.js"></script>
@@ -21,12 +22,14 @@
 			var $elMainCarousel = $('#main-carousel');
 			var $elThumbCarousel = $('#thumb-carousel');
 			var exMainCarousel = new Carousel( $elMainCarousel, {
-				highlightActive: true,
-				autoRotate: true
+				autoRotate: true,
+				loopEndToEnd: true
 			});
 			var exThumbCarousel = new Carousel( $elThumbCarousel, {
 				numVisibleItems: 5,
-				numItemsToAnimate: 2
+				numItemsToAnimate: 4,
+				autoRotate: false,
+				loopEndToEnd: true
 			});
 		});
 	</script>
@@ -38,193 +41,201 @@
 
 		<h1>CNJS Carousel</h1>
 
-		<p>
-			The included CSS stylesheet is for a responsive carousel and defaults to using percentages based on 10 items. The JS will re-calculate the percentages based on actual length of items.
-		</p>
-		<p>
-			When setting the 'isResponsive' option to false, the JS will not calculate relative sizes, and you must ensure the CSS units are accurate.
-		</p>
-
 		<hr />
 
 		<h2>Main Carousel</h2>
 		<p>
-			"Hero" style main carousel uses class defaults: {numVisibleItems: 1, numItemsToAnimate: 1, isResponsive: true, enableSwipe: true}, and custom options: {highlightActive: true, autoRotate: true}<br />
+			"Hero" style main carousel uses class defaults: {numVisibleItems: 1, numItemsToAnimate: 1}, and custom options: {autoRotate: true, loopEndToEnd: true}<br />
 			Uses CSS opacity transition to fade in/out the media-info area when active / highlighted class is applied.
 		</p>
 
 		<div id="main-carousel" class="carousel main-carousel">
-
-			<div class="inner-track">
-				<ul>
-					<li>
+			<div class="outer-mask">
+				<div class="inner-track">
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-01.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">1 of 12</span>
 							<h3>Lorem Ipsum 01</h3>
-							<p><span class="counter">1 of 12</span> Caption for lorem ipsum 01</p>
+							<p>Caption for lorem ipsum 01</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-02.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">2 of 12</span>
 							<h3>Lorem Ipsum 02</h3>
-							<p><span class="counter">2 of 12</span> Caption for lorem ipsum 02</p>
+							<p>Caption for lorem ipsum 02</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-03.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">3 of 12</span>
 							<h3>Lorem Ipsum 03</h3>
-							<p><span class="counter">3 of 12</span> Caption for lorem ipsum 03</p>
+							<p>Caption for lorem ipsum 03</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-04.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">4 of 12</span>
 							<h3>Lorem Ipsum 04</h3>
-							<p><span class="counter">4 of 12</span> Caption for lorem ipsum 04</p>
+							<p>Caption for lorem ipsum 04</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-05.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">5 of 12</span>
 							<h3>Lorem Ipsum 05</h3>
-							<p><span class="counter">5 of 12</span> Caption for lorem ipsum 05</p>
+							<p>Caption for lorem ipsum 05</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-06.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">6 of 12</span>
 							<h3>Lorem Ipsum 06</h3>
-							<p><span class="counter">6 of 12</span> Caption for lorem ipsum 06</p>
+							<p>Caption for lorem ipsum 06</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-07.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">7 of 12</span>
 							<h3>Lorem Ipsum 07</h3>
-							<p><span class="counter">7 of 12</span> Caption for lorem ipsum 07</p>
+							<p>Caption for lorem ipsum 07</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-08.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">8 of 12</span>
 							<h3>Lorem Ipsum 08</h3>
-							<p><span class="counter">8 of 12</span> Caption for lorem ipsum 08</p>
+							<p>Caption for lorem ipsum 08</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-09.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">9 of 12</span>
 							<h3>Lorem Ipsum 09</h3>
-							<p><span class="counter">9 of 12</span> Caption for lorem ipsum 09</p>
+							<p>Caption for lorem ipsum 09</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-10.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">10 of 12</span>
 							<h3>Lorem Ipsum 10</h3>
-							<p><span class="counter">10 of 12</span> Caption for lorem ipsum 10</p>
+							<p>Caption for lorem ipsum 10</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-03.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">11 of 12</span>
 							<h3>Lorem Ipsum 11</h3>
-							<p><span class="counter">11 of 12</span> Caption for lorem ipsum 11</p>
+							<p>Caption for lorem ipsum 11</p>
 						</div>
-					</li>
-					<li>
+					</article>
+					<article>
 						<div class="media-container">
 							<img alt="" src="assets/media/main/main-07.jpg" />
 						</div>
 						<div class="media-info">
+							<span class="counter">12 of 12</span>
 							<h3>Lorem Ipsum 12</h3>
-							<p><span class="counter">12 of 12</span> Caption for lorem ipsum 12</p>
+							<p>Caption for lorem ipsum 12</p>
 						</div>
-					</li>
-				</ul>
+					</article>
+				</div>
 			</div>
-			<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
-			<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
-
+			<a href="#" class="arrow-nav nav-prev" title="Previous"><span class="arrow"></span></a>
+			<a href="#" class="arrow-nav nav-next" title="Next"><span class="arrow"></span></a>
 		</div>
 
 		<hr />
 
 		<h2>Thumb Carousel</h2>
 		<p>
-			The thumb carousel uses custom options: {numVisibleItems: 5, numItemsToAnimate: 2}<br />
+			The thumb carousel uses custom options: {numVisibleItems: 5, numItemsToAnimate: 4, loopEndToEnd: true}<br />
 			The numVisibleItems option must be accurate or weird stuff will happen. The numItemsToAnimate can be set as desired (within reason of course).
 		</p>
 
 		<div id="thumb-carousel" class="carousel thumb-carousel">
-			<div class="inner-track">
-				<ul>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-01.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-02.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-04.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-05.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-06.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-08.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-09.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-10.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
-					</li>
-					<li>
-						<a><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
-					</li>
-					
-				</ul>
+			<div class="outer-mask">
+				<div class="inner-track">
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-01.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-02.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-04.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-05.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-06.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-08.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-09.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-10.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-03.jpg" /></a>
+					</article>
+					<article>
+						<a href="#"><img alt="" src="assets/media/thumb/thumb-07.jpg" /></a>
+					</article>
+				</div>
 			</div>
-			<a title="Previous" class="arrow-nav nav-prev"><span class="arrow"></span></a>
-			<a title="Next" class="arrow-nav nav-next"><span class="arrow"></span></a>
+			<a href="#" class="arrow-nav nav-prev" title="Previous"><span class="arrow"></span></a>
+			<a href="#" class="arrow-nav nav-next" title="Next"><span class="arrow"></span></a>
 		</div>
+
+		<hr />
+
+		<p>
+			Note: The carousel container and item widths are set in the CSS. This carousel is not responsive, and resizing the browser will not resize the carousel.
+		</p>
 
 	</section>
 

@@ -1,10 +1,11 @@
 {
 	"name": "CNJS-Carousel",
 	"description": "Basic Carousel widget",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"main": [
 		"assets/Carousel.js",
-		"assets/Carousel.css"
+		"assets/Carousel.css",
+		"assets/arrowNav.css"
 	],
 	"repository": {
 		"type": "git",
