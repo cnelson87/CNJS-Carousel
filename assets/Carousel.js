@@ -3,7 +3,7 @@
 
 	DESCRIPTION: Basic Carousel widget
 
-	VERSION: 0.1.4
+	VERSION: 0.1.5
 
 	USAGE: var myCarousel = new Carousel('Element', 'Options')
 		@param {jQuery Object}
@@ -12,7 +12,7 @@
 	AUTHOR: CN
 
 	DEPENDENCIES:
-		- jQuery 2.1x+
+		- jquery 2.1x+
 		- greensock
 		- Class.js
 
@@ -80,10 +80,10 @@ var Carousel = Class.extend({
 		var trackWidth = this.itemWidth * this._length;
 		var leftPos = this.scrollAmt * this.currentIndex;
 
-		this.$el.attr({'role':'tablist'});
+		this.$el.attr({'role':'tablist', 'aria-live':'polite'});
 		this.$navPrev.attr({'role':'button', 'tabindex':'0'});
 		this.$navNext.attr({'role':'button', 'tabindex':'0'});
-		this.$panels.attr({'role':'tabpanel', 'tabindex':'-1'});
+		this.$panels.attr({'role':'tabpanel', 'tabindex':'-1', 'aria-hidden':'true'});
 
 		// disable nav links if not enough visible items
 		this.updateNav();
@@ -252,7 +252,7 @@ var Carousel = Class.extend({
 	},
 
 	deactivateItems: function() {
-		this.$panels.removeClass(this.options.classActiveItem).attr({'tabindex':'-1'});
+		this.$panels.removeClass(this.options.classActiveItem).attr({'tabindex':'-1', 'aria-hidden':'true'});
 		this.$panels.find(this.options.selectorFocusEls).attr({'tabindex':'-1'});
 	},
 
@@ -261,7 +261,7 @@ var Carousel = Class.extend({
 		var last = this.currentIndex + this.numVisibleItems;
 		var $activeItems = this.$panels.slice(first, last);
 
-		$activeItems.addClass(this.options.classActiveItem).attr({'tabindex':'0'});
+		$activeItems.addClass(this.options.classActiveItem).attr({'tabindex':'0', 'aria-hidden':'false'});
 		$activeItems.find(this.options.selectorFocusEls).attr({'tabindex':'0'});
 
 	},
