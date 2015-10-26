@@ -3,7 +3,7 @@
 
 	DESCRIPTION: Basic Carousel widget
 
-	VERSION: 0.1.5
+	VERSION: 0.1.6
 
 	USAGE: var myCarousel = new Carousel('Element', 'Options')
 		@param {jQuery Object}
@@ -23,6 +23,7 @@ var Carousel = Class.extend({
 
 		// defaults
 		this.$window = $(window);
+		this.$htmlBody = $('html, body');
 		this.$el = $el;
 		this.options = $.extend({
 			initialIndex: 0,
@@ -227,7 +228,7 @@ var Carousel = Class.extend({
 	updateCarousel: function(event) {
 		var self = this;
 		var leftPos = (this.scrollAmt * this.currentIndex) + 'px';
-		var $currentItem = this.$panels.eq(this.currentIndex);
+		var $activePanel = this.$panels.eq(this.currentIndex);
 
 		this.isAnimating = true;
 
@@ -242,12 +243,28 @@ var Carousel = Class.extend({
 				self.isAnimating = false;
 				self.activateItems();
 				if (!!event) {
-					$currentItem.focus();
+					self.focusOnPanel($activePanel);
 				}
 			}
 		});
 
 		$.event.trigger(this.options.customEventName + ':carouselUpdated', [this.currentIndex]);
+
+	},
+
+	updateNav: function() {
+
+		this.$navPrev.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
+		this.$navNext.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
+
+		if (!this.options.loopEndToEnd) {
+			if (this.currentIndex <= 0) {
+				this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
+			}
+			if (this.currentIndex >= this.lastIndex) {
+				this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
+			}
+		}
 
 	},
 
@@ -266,23 +283,18 @@ var Carousel = Class.extend({
 
 	},
 
-	updateNav: function() {
-
-		this.$navPrev.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
-		this.$navNext.removeClass(this.options.classNavDisabled).attr({'tabindex':'0'});
-
-		if (!this.options.loopEndToEnd) {
-
-			if (this.currentIndex <= 0) {
-				this.$navPrev.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
-			}
-
-			if (this.currentIndex >= this.lastIndex) {
-				this.$navNext.addClass(this.options.classNavDisabled).attr({'tabindex':'-1'});
-			}
-
+	focusOnPanel: function($panel) {
+		var pnlTop = $panel.offset().top;
+		var pnlHeight = $panel.outerHeight();
+		var winTop = this.$window.scrollTop();
+		var winHeight = this.$window.height();
+		if (pnlHeight > winHeight || pnlTop < winTop) {
+			this.$htmlBody.animate({scrollTop: pnlTop}, 200, function() {
+				$panel.focus();
+			});
+		} else {
+			$panel.focus();
 		}
-
 	}
 
 });
