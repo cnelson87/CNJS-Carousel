@@ -1,7 +1,7 @@
 {
 	"name": "CNJS-Carousel",
 	"description": "Basic Carousel widget",
-	"version": "0.1.6",
+	"version": "0.1.6.1",
 	"main": [
 		"assets/Carousel.js",
 		"assets/Carousel.css",
@@ -13,8 +13,8 @@
 	},
 	"dependencies": {
 		"jquery": "~2.1.4",
-		"jquery-touchswipe": "~1.6.9",
-		"greensock": "~1.18.0",
+		"jquery-touchswipe": "~1.6.15",
+		"greensock": "~1.18.2",
 		"Class.js": "~1.0.0"
 	},
 	"ignore": [],
