@@ -3,7 +3,7 @@
 
 	DESCRIPTION: Basic Carousel widget
 
-	VERSION: 0.1.6
+	VERSION: 0.1.7
 
 	USAGE: var myCarousel = new Carousel('Element', 'Options')
 		@param {jQuery Object}
@@ -113,6 +113,24 @@ var Carousel = Class.extend({
 
 	},
 
+	uninitDOM: function() {
+
+		this.$el.removeAttr('role aria-live');
+		this.$navPrev.removeAttr('role tabindex');
+		this.$navNext.removeAttr('role tabindex');
+		this.$panels.removeAttr('role tabindex aria-hidden').removeClass(this.options.classActiveItem);
+		this.$panels.find(this.options.selectorFocusEls).removeAttr('tabindex');
+
+		TweenMax.set(this.$innerTrack, {
+			left: ''
+		});
+
+		if (this.options.autoRotate) {
+			clearInterval(this.setAutoRotation);
+		}
+
+	},
+
 	bindEvents: function() {
 		var self = this;
 
@@ -153,8 +171,8 @@ var Carousel = Class.extend({
 	},
 
 	unbindEvents: function() {
-		this.$navPrev.off('click', function(){});
-		this.$navNext.off('click', function(){});
+		this.$navPrev.off('click');
+		this.$navNext.off('click');
 		if (this.options.enableSwipe) {
 			this.$el.swipe('destroy');
 		}
@@ -295,6 +313,17 @@ var Carousel = Class.extend({
 		} else {
 			$panel.focus();
 		}
+	},
+
+	unInitialize: function() {
+		this.unbindEvents();
+		this.uninitDOM();
+		this.$el = null;
+		this.$navPrev = null;
+		this.$navNext = null;
+		this.$innerTrack = null;
+		this.$panels = null;
+		$.event.trigger(this.options.customEventName + ':unInitialized');
 	}
 
 });
