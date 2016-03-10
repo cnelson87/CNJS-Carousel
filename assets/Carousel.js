@@ -77,9 +77,11 @@ var Carousel = Class.extend({
 **/
 
 	initDOM: function() {
+		var self = this;
 		var $currentItem = this.$panels.eq(this.currentIndex);
 		var trackWidth = this.itemWidth * this._length;
 		var leftPos = this.scrollAmt * this.currentIndex;
+		var startX;
 
 		this.$el.attr({'role':'tablist', 'aria-live':'polite'});
 		this.$navPrev.attr({'role':'button', 'tabindex':'0'});
@@ -96,8 +98,8 @@ var Carousel = Class.extend({
 		// adjust initial position
 		TweenMax.set(this.$innerTrack, {
 			width: trackWidth,
-			left: leftPos
-		}); 
+			x: leftPos
+		});
 
 		this.deactivateItems();
 		this.activateItems();
@@ -110,6 +112,56 @@ var Carousel = Class.extend({
 				this.autoRotation();
 			}.bind(this), this.rotationInterval);
 		}
+
+		this.draggable = new Draggable.create( this.$innerTrack, {
+			type           :'x',
+			bounds         : this.$el,
+			dragResistance : 0,
+			liveSnap       : false,
+			dragClickables : true,
+			snap: function( endValue ) {
+				return Math.round(endValue / self.itemWidth) * self.itemWidth;
+			},
+			onPress: function() {
+				startX = this.x;
+				if (self.options.autoRotate) {
+					clearInterval(self.setAutoRotation);
+					self.options.autoRotate = false;
+				}
+			},
+			onDragEnd:function(event) {
+				// console.log('onDragEnd');
+				var start = Math.abs(startX);
+				var end   = Math.abs(this.x);
+				var distance  = start - end;
+				var origNumItemsToAnimate = self.numItemsToAnimate;
+				var tempNumItemsToAnimate;
+				// console.log(start, end, distance);
+
+				if ( distance > 0 ) {
+
+					tempNumItemsToAnimate = Math.abs(Math.ceil(distance / self.itemWidth));
+					self.numItemsToAnimate = tempNumItemsToAnimate;
+
+					if (!self.$navPrev.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+						self.__clickNavPrev(event);
+					}
+
+				} else if ( distance < 0 ) {
+
+					tempNumItemsToAnimate = Math.abs(Math.floor(distance / self.itemWidth));
+					self.numItemsToAnimate = tempNumItemsToAnimate;
+
+					if (!self.$navNext.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+						self.__clickNavNext(event);
+					}
+
+				}
+
+				self.numItemsToAnimate = origNumItemsToAnimate;
+
+			}
+		});
 
 	},
 
@@ -148,34 +200,34 @@ var Carousel = Class.extend({
 			}
 		}.bind(this));
 
-		if (this.options.enableSwipe) {
-			this.$el.swipe({
-				fingers: 'all',
-				excludedElements: '.noSwipe',
-				threshold: 50,
-				triggerOnTouchEnd: false, // triggers on threshold
-				swipeLeft: function(event) {
-					if (!self.$navNext.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
-						self.__clickNavNext(event);
-					}
-				},
-				swipeRight: function(event) {
-					if (!self.$navPrev.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
-						self.__clickNavPrev(event);
-					}
-				},
-				allowPageScroll: 'vertical'
-			});
-		}
+		// if (this.options.enableSwipe) {
+		// 	this.$el.swipe({
+		// 		fingers: 'all',
+		// 		excludedElements: '.noSwipe',
+		// 		threshold: 50,
+		// 		triggerOnTouchEnd: false, // triggers on threshold
+		// 		swipeLeft: function(event, direction, distance, duration) {
+		// 			if (!self.$navNext.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+		// 				self.__clickNavNext(event);
+		// 			}
+		// 		},
+		// 		swipeRight: function(event, direction, distance, duration) {
+		// 			if (!self.$navPrev.hasClass(self.options.classNavDisabled) && !self.isAnimating) {
+		// 				self.__clickNavPrev(event);
+		// 			}
+		// 		},
+		// 		allowPageScroll: 'vertical'
+		// 	});
+		// }
 
 	},
 
 	unbindEvents: function() {
 		this.$navPrev.off('click');
 		this.$navNext.off('click');
-		if (this.options.enableSwipe) {
-			this.$el.swipe('destroy');
-		}
+		// if (this.options.enableSwipe) {
+		// 	this.$el.swipe('destroy');
+		// }
 	},
 
 	autoRotation: function() {
@@ -255,7 +307,7 @@ var Carousel = Class.extend({
 		this.updateNav();
 
 		TweenMax.to(this.$innerTrack, this.options.animDuration, {
-			left: leftPos,
+			x: leftPos,
 			ease: this.options.animEasing,
 			onComplete: function() {
 				self.isAnimating = false;
