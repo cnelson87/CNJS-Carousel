@@ -174,7 +174,7 @@ var Carousel = Class.extend({
 		this.$panels.find(this.options.selectorFocusEls).removeAttr('tabindex');
 
 		TweenMax.set(this.$innerTrack, {
-			left: ''
+			x: ''
 		});
 
 		if (this.options.autoRotate) {
